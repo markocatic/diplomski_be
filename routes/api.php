@@ -9,4 +9,8 @@ Route::group([
 
     Route::get('getSamsungProducts', 'Shared\ProductsController@getSamsungProducts');
     Route::get('getIphoneProducts', 'Shared\ProductsController@getIphoneProducts');
+
+    Route::get('getUserCart/{id}', 'Shared\CartController@getUserCart');
+    Route::post('AddItemToCart', 'Shared\CartController@AddItemToCart');
+    Route::post('deleteItemFromCart', 'Shared\CartController@deleteItemFromCart');
 });

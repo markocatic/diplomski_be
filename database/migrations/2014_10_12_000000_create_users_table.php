@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->string('city');
             $table->string('address');
+            $table->integer('role_id')->default(false);
         });
     }
 
