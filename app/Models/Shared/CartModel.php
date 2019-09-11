@@ -35,5 +35,25 @@ class CartModel
         ->delete();
     }
 
+    public function editItemInCart($id) {
+        return DB::table($this->table)
+        ->where('id', $id)
+        ->update([
+            'quantity' => $this->quantity
+        ]);
+    }
+
+    public function checkout($id) {
+        return DB::table($this->table)
+        ->where('user_id', $id)
+        ->delete();
+    }
+
+    public function selectUserCart($id) {
+        return DB::table($this->table)
+        ->select('cart.id as cart_id','cart.user_id as user_id', 'cart.product_id as product_id')
+        ->get();
+    }
+
 
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Shared;
 
 use Illuminate\Http\Request;
 use App\Models\Shared\CartModel;
+use App\Models\Shared\OrderModel;
 
 class CartController
 {
@@ -39,5 +40,50 @@ class CartController
             }
         
         return response()->json($item, 200);
+    }
+
+    public function editItemInCart(Request $request, $id)
+    {
+        $model = new CartModel();
+        $model->quantity = $request->quantity;
+        
+
+        try{
+            $item = $model->editItemInCart($id);
+        }
+            catch(\Exception $e){
+                Log::error($e->getMessage);
+            }
+        
+        return response()->json($item, 200);
+    }
+
+    
+    public function selectUserCart($id)
+    {
+        $model = new CartModel();
+        $items =$model->selectUserCart($id);
+        return $items;
+    }
+
+    public function checkout($id)
+    {
+        $cartModel = new CartModel();
+        $orderModel = new OrderModel();
+        $items = $this->selectUserCart($id);
+
+        foreach($items as $item) {
+            $orderModel->cart_id = $item->cart_id;
+            $orderModel->user_id = $item->user_id;
+            $orderModel->product_id = $item->product_id;
+
+            $orderItems = $orderModel->store();
+        }
+
+        $cartModel->checkout($id);
+
+        return response()->json($orderItems, 200);
+
+
     }
 }
