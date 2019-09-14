@@ -21,4 +21,11 @@ class ProductsController
 
         return response()->json($products, 200);
     }
+
+    public function getAllProducts() {
+        $model = new ProductsModel();
+        $products = $model->getAllProducts();
+
+        return response()->json($products, 200);
+    }
 }

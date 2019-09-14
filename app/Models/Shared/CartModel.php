@@ -16,7 +16,7 @@ class CartModel
         ->join('products', 'cart.product_id', '=', 'products.id')
         ->join('product_images', 'products.image_id', '=', 'product_images.id')
         ->where('user_id', $id)
-        ->select('cart.*', 'products.name as name', 'product_images.path as picture')
+        ->select('cart.*', 'products.name as name', 'product_images.path as picture', 'products.price as price')
         ->get();
     }
 
