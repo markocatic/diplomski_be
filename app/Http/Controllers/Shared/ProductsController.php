@@ -15,6 +15,13 @@ class ProductsController
         return response()->json($products, 200);
     }
 
+    public function getOneProduct($id) {
+        $model = new ProductsModel();
+        $product = $model->getOneProduct($id);
+
+        return response()->json($product, 200);
+    }
+
     public function getIphoneProducts() {
         $model = new ProductsModel();
         $products = $model->getIphoneProducts();

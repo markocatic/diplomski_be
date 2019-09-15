@@ -8,8 +8,9 @@ use App\Models\Shared\OrderModel;
 
 class CartController
 {
-    public function getUserCart($id)
+    public function getUserCart(Request $request)
     {
+        $id = $request->getContent();
         $model = new CartModel();
         $items = $model->getUserCart($id);
 
