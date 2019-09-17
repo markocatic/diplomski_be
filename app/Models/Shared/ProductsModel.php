@@ -5,7 +5,7 @@ namespace App\Models\Shared;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class ProductsModel 
+class ProductsModel
 {
     public $name;
     public $description;
@@ -13,43 +13,46 @@ class ProductsModel
     public $price;
     public $brand_id;
     public $image_id;
-    
+    public $new;
+
     private $table = 'products';
 
-    public function getSamsungProducts() {
+    public function getSamsungProducts()
+    {
         return DB::table($this->table)
-        ->join('brands', 'products.brand_id' ,'=', 'brands.id')
-        ->join('product_images', 'products.image_id', '=', 'product_images.id')
-        ->where('brand_id', '=', '1')
-        ->select('products.*', 'brands.name as brand', 'product_images.path as image_path')
-        ->get();
+            ->join('brands', 'products.brand_id', '=', 'brands.id')
+            ->join('product_images', 'products.image_id', '=', 'product_images.id')
+            ->where('brand_id', '=', '1')
+            ->select('products.*', 'brands.name as brand', 'product_images.path as image_path')
+            ->get();
     }
 
-    public function getIphoneProducts() {
+    public function getIphoneProducts()
+    {
         return DB::table($this->table)
-        ->join('brands', 'products.brand_id' ,'=', 'brands.id')
-        ->join('product_images', 'products.image_id', '=', 'product_images.id')
-        ->where('brand_id', '=', '2')
-        ->select('products.*', 'brands.name as brand', 'product_images.path as image_path')
-        ->get();
+            ->join('brands', 'products.brand_id', '=', 'brands.id')
+            ->join('product_images', 'products.image_id', '=', 'product_images.id')
+            ->where('brand_id', '=', '2')
+            ->select('products.*', 'brands.name as brand', 'product_images.path as image_path')
+            ->get();
     }
 
-    public function getAllProducts() {
+    public function getAllProducts()
+    {
         return DB::table($this->table)
-        ->join('brands', 'products.brand_id' ,'=', 'brands.id')
-        ->join('product_images', 'products.image_id', '=', 'product_images.id')
-        ->select('products.*', 'brands.name as brand', 'product_images.path as image_path')
-        ->get();
+            ->join('brands', 'products.brand_id', '=', 'brands.id')
+            ->join('product_images', 'products.image_id', '=', 'product_images.id')
+            ->select('products.*', 'brands.name as brand', 'product_images.path as image_path')
+            ->get();
     }
 
-    public function getOneProduct($id) {
+    public function getOneProduct($id)
+    {
         return DB::table($this->table)
-        ->join('brands', 'products.brand_id' ,'=', 'brands.id')
-        ->join('product_images', 'products.image_id', '=', 'product_images.id')
-        ->where('products.id', $id)
-        ->select('products.*', 'brands.name as brand', 'product_images.path as image_path')
-        ->first();
+            ->join('brands', 'products.brand_id', '=', 'brands.id')
+            ->join('product_images', 'products.image_id', '=', 'product_images.id')
+            ->where('products.id', $id)
+            ->select('products.*', 'brands.name as brand', 'product_images.path as image_path')
+            ->first();
     }
-
-
 }
