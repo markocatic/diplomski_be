@@ -55,4 +55,34 @@ class ProductsModel
             ->select('products.*', 'brands.name as brand', 'product_images.path as image_path')
             ->first();
     }
+
+    public function getNewProducts()
+    {
+        return DB::table($this->table)
+            ->join('brands', 'products.brand_id', '=', 'brands.id')
+            ->join('product_images', 'products.image_id', '=', 'product_images.id')
+            ->where('products.new_item', 1)
+            ->select('products.*', 'brands.name as brand', 'product_images.path as image_path')
+            ->get();
+    }
+
+    public function getLaptopProducts()
+    {
+        return DB::table($this->table)
+            ->join('brands', 'products.brand_id', '=', 'brands.id')
+            ->join('product_images', 'products.image_id', '=', 'product_images.id')
+            ->where('brand_id', '=', '4')
+            ->select('products.*', 'brands.name as brand', 'product_images.path as image_path')
+            ->get();
+    }
+
+    public function getTvProducts()
+    {
+        return DB::table($this->table)
+            ->join('brands', 'products.brand_id', '=', 'brands.id')
+            ->join('product_images', 'products.image_id', '=', 'product_images.id')
+            ->where('brand_id', '=', '3')
+            ->select('products.*', 'brands.name as brand', 'product_images.path as image_path')
+            ->get();
+    }
 }

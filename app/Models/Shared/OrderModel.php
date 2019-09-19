@@ -16,11 +16,11 @@ class OrderModel
     public function store()
     {
         return DB::table($this->table)
-        ->insert([
-            'cart_id' => $this->cart_id,
-            'user_id' => $this->user_id,
-            'product_id' => $this->product_id,
-            'date' => date('Y-m-s')
-        ]);
+            ->insert([
+                'cart_id' => $this->cart_id,
+                'user_id' => $this->user_id,
+                'product_id' => $this->product_id,
+                'date' => date('Y-m-d')
+            ]);
     }
 }

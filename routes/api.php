@@ -11,17 +11,21 @@ Route::group([
     Route::get('getIphoneProducts', 'Shared\ProductsController@getIphoneProducts');
     Route::get('getAllProducts', 'Shared\ProductsController@getAllProducts');
     Route::get('getOneProduct/{id}', 'Shared\ProductsController@getOneProduct');
+    Route::get('getNewProducts', 'Shared\ProductsController@getNewProducts');
+    Route::get('getTvProducts', 'Shared\ProductsController@getTvProducts');
+    Route::get('getLaptopProducts', 'Shared\ProductsController@getLaptopProducts');
 
     Route::post('getUserCart', 'Shared\CartController@getUserCart');
     Route::post('additemtocart', 'Shared\CartController@AddItemToCart');
     Route::post('deleteItemFromCart', 'Shared\CartController@deleteItemFromCart');
     Route::post('editItemInCart/{id}', 'Shared\CartController@editItemInCart');
-    Route::get('checkout/{id}', 'Shared\CartController@checkout');
+    Route::post('checkout', 'Shared\CartController@checkout');
 
 
     Route::post('insert', 'Shared\WishlistController@insert');
     Route::get('userList/{id}', 'Shared\WishlistController@userList');
-    Route::post('delete', 'Shared\WishlistController@deleteItem');
+    Route::post('delete/{userId}', 'Shared\WishlistController@deleteItem');
 
     Route::get('info', 'Shared\InfoController@info');
+    Route::post('contact', 'Shared\ContactController@store');
 });

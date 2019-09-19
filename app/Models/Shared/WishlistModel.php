@@ -33,10 +33,11 @@ class WishlistModel
             ->get();
     }
 
-    public function delete($id)
+    public function delete($idUser, $idProduct)
     {
         return DB::table($this->table)
-            ->where('product_id', $id)
+            ->where('user_id', $idUser)
+            ->where('product_id', $idProduct)
             ->delete();
     }
 }

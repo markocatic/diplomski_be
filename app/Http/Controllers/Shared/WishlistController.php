@@ -31,11 +31,11 @@ class WishlistController extends Controller
         }
     }
 
-    public function deleteItem(Request $request)
+    public function deleteItem(Request $request, $userId)
     {
         $model = new WishlistModel();
-        $id = $request->getContent();
-        $deleted = $model->delete($id);
+        $productId = $request->getContent();
+        $deleted = $model->delete($userId, $productId);
 
         return response()->json($deleted, 200);
     }

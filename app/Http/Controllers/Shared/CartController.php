@@ -27,19 +27,19 @@ class CartController
 
         $items = $model->AddItemToCart();
 
-        return response()->json($items,200);
+        return response()->json($items, 200);
     }
 
-    public function deleteItemFromCart(Request $request) {
+    public function deleteItemFromCart(Request $request)
+    {
         $model = new CartModel();
         $body = $request->getContent();
-        try{
+        try {
             $item = $model->deleteItemFromCart($body);
+        } catch (Exception $e) {
+            Log::error($e->getMessage);
         }
-            catch(Exception $e){
-                Log::error($e->getMessage);
-            }
-        
+
         return response()->json($item, 200);
     }
 
@@ -47,44 +47,44 @@ class CartController
     {
         $model = new CartModel();
         $model->quantity = $request->quantity;
-        
 
-        try{
+
+        try {
             $item = $model->editItemInCart($id);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage);
         }
-            catch(\Exception $e){
-                Log::error($e->getMessage);
-            }
-        
+
         return response()->json($item, 200);
     }
 
-    
+
     public function selectUserCart($id)
     {
         $model = new CartModel();
-        $items =$model->selectUserCart($id);
+        $items = $model->selectUserCart($id);
         return $items;
     }
 
-    public function checkout($id)
+    public function checkout(Request $request)
     {
+        $id = $request->getContent();
         $cartModel = new CartModel();
         $orderModel = new OrderModel();
         $items = $this->selectUserCart($id);
 
-        foreach($items as $item) {
+        foreach ($items as $item) {
             $orderModel->cart_id = $item->cart_id;
             $orderModel->user_id = $item->user_id;
             $orderModel->product_id = $item->product_id;
 
-            $orderItems = $orderModel->store();
+            $order = $orderModel->store();
         }
+
+
 
         $cartModel->checkout($id);
 
-        return response()->json($orderItems, 200);
-
-
+        return response()->json($items, 200);
     }
 }
