@@ -49,11 +49,8 @@ class CartController
         $model->quantity = $request->quantity;
 
 
-        try {
-            $item = $model->editItemInCart($id);
-        } catch (\Exception $e) {
-            Log::error($e->getMessage);
-        }
+        $item = $model->editItemInCart($id);
+
 
         return response()->json($item, 200);
     }
