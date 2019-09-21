@@ -28,4 +28,10 @@ Route::group([
 
     Route::get('info', 'Shared\InfoController@info');
     Route::post('contact', 'Shared\ContactController@store');
+
+
+
+    Route::get('getUsers', 'Admin\UserAdminController@getAllUsers');
+    Route::get('getOne/{id}', 'Admin\UserAdminController@getOneUser');
+    Route::post('userDelete', 'Admin\UserAdminController@delete');
 });
