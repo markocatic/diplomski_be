@@ -36,4 +36,35 @@ class UserAdminModel
             ->where('id', $id)
             ->delete();
     }
+
+    public function save()
+    {
+        return DB::table($this->table)
+            ->insertGetId([
+                'name' => $this->name,
+                'email' => $this->email,
+                'password' => bcrypt($this->password),
+                'role_id' => $this->role_id
+            ]);
+    }
+
+    public function update($id)
+    {
+        $update = [
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => bcrypt($this->password),
+            'role_id' => $this->role_id
+        ];
+
+        if ($this->role_id != null) {
+            $updated = [
+                'role_id' => $this->role_id
+            ];
+        }
+
+        return DB::table($this->table)
+            ->where('id', $id)
+            ->update($update);
+    }
 }

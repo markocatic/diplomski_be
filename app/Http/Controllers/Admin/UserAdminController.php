@@ -32,4 +32,51 @@ class UserAdminController
 
         return response()->json($user, 200);
     }
+
+    public function save(Request $request)
+    {
+        $rules = [
+            'name' => 'required|alpha',
+            'email' => 'required|email',
+            'password' => 'required|min:3|max:20'
+        ];
+
+        $message = [];
+        $validator = \Validator::make($request->all(), $rules, $message);
+        $validator->validate();
+
+        $model = new UserAdminModel();
+
+        $model->name = $request->name;
+        $model->email = $request->email;
+        $model->password = $request->password;
+        $model->role_id = $request->role_id;
+
+        $items = $model->save();
+        return response()->json($items, 200);
+    }
+
+    public function update(Request $request, $id)
+    {
+
+        $rules = [
+            'name' => 'required|alpha',
+            'email' => 'required|email',
+            'password' => 'required|min:3|max:20',
+        ];
+
+        $message = [];
+        $validator = \Validator::make($request->all(), $rules, $message);
+        $validator->validate();
+
+        $model = new UserAdminModel();
+
+        $model->name = $request->name;
+        $model->email = $request->email;
+        $model->password = $request->password;
+        $model->role_id = $request->role_id;
+
+        $items = $model->update($id);
+        return response()->json($items, 200);
+    }
 }

@@ -34,4 +34,6 @@ Route::group([
     Route::get('getUsers', 'Admin\UserAdminController@getAllUsers');
     Route::get('getOne/{id}', 'Admin\UserAdminController@getOneUser');
     Route::post('userDelete', 'Admin\UserAdminController@delete');
+    Route::post('update/{id}', 'Admin\UserAdminController@update');
+    Route::post('save', 'Admin\UserAdminController@save');
 });
