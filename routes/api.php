@@ -36,4 +36,7 @@ Route::group([
     Route::post('userDelete', 'Admin\UserAdminController@delete');
     Route::post('update/{id}', 'Admin\UserAdminController@update');
     Route::post('save', 'Admin\UserAdminController@save');
+
+    Route::post('deleteProduct', 'Admin\ProductAdminController@delete');
+    Route::post('saveProduct', 'Admin\ProductAdminController@save');
 });
