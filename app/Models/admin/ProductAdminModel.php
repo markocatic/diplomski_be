@@ -25,6 +25,25 @@ class ProductAdminModel
     //         ->get();
     // }
 
+    public function getAllProducts()
+    {
+        return DB::table($this->table)
+            ->join('brands', 'products.brand_id', '=', 'brands.id')
+            ->join('product_images', 'products.image_id', '=', 'product_images.id')
+            ->select('products.*', 'brands.name as brand', 'product_images.path as image_path')
+            ->get();
+    }
+
+    public function getOneProduct($id)
+    {
+        return DB::table($this->table)
+            ->join('brands', 'products.brand_id', '=', 'brands.id')
+            ->join('product_images', 'products.image_id', '=', 'product_images.id')
+            ->where('products.id', $id)
+            ->select('products.*', 'brands.name as brand', 'product_images.path as image_path', 'product_images.id as image_id')
+            ->first();
+    }
+
     public function save()
     {
         return DB::table($this->table)

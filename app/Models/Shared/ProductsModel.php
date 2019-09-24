@@ -52,7 +52,7 @@ class ProductsModel
             ->join('brands', 'products.brand_id', '=', 'brands.id')
             ->join('product_images', 'products.image_id', '=', 'product_images.id')
             ->where('products.id', $id)
-            ->select('products.*', 'brands.name as brand', 'product_images.path as image_path')
+            ->select('products.*', 'brands.name as brand', 'product_images.path as image_path', 'product_images.id as image_id')
             ->first();
     }
 

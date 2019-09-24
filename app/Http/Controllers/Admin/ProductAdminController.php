@@ -30,7 +30,9 @@ class ProductAdminController extends Controller
         $productModel->description_short = $request->description_short;
         $productModel->new_item = $request->new_item;
 
+
         $items = $productModel->save();
+
         return response()->json($items, 200);
     }
 
@@ -43,5 +45,51 @@ class ProductAdminController extends Controller
         $test = $product->delete($id);
 
         return response()->json($test, 200);
+    }
+    public function update(Request $request, $id)
+    {
+        $oldPic = null;
+        $productModel = new ProductAdminModel();
+        $productImage = new ImageAdminModel();
+
+        $productModel->name = $request->name;
+        $productModel->brand_id = $request->brand_id;
+        $productModel->price = $request->price;
+        $productModel->description = $request->description;
+        $productModel->description_short = $request->description_short;
+        $productModel->new_item = $request->new_item;
+
+
+        if ($request->hasFile('image')) {
+            $oldPic = $productModel->id_image($id);
+            dd($oldPic);
+            try {
+                $path = $request->file('image');
+                $directory = public_path('images/products/');
+                $picName = "product_" . time() . ".jpg";
+                $path->move($directory, $picName);
+
+                $productImage->path = "images/products/" . $picName;
+                $productImage->name = "product" . time() . "jpg";
+                $productModel->image_id = $productImage->store();
+            } catch (QueryException $e) {
+                \Log::error($e->getMessage());
+            }
+        }
+
+        try {
+            $productModel->update($id);
+            dd($productModel);
+            try {
+                if ($oldPic) {
+                    $productImage = new ImageAdminModel();
+                    $pic = $productImage->getOne($oldPic);
+                    unlink(public_path($productImage->path));
+                    $pic->delete($oldPic);
+                }
+            } catch (Exception $e) {
+                \Log::error("error" . $e->getMessage());
+            }
+        } catch (Exception $e) { }
     }
 }

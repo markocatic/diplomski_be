@@ -10,6 +10,7 @@ class ContactModel
     public $email;
     public $number;
     public $message;
+    public $answered;
 
     private $table = 'contact';
 
@@ -20,7 +21,8 @@ class ContactModel
                 'name' => $this->name,
                 'email' => $this->email,
                 'number' => $this->number,
-                'message' => $this->message
+                'message' => $this->message,
+                'answered' => 0
             ]);
     }
 }

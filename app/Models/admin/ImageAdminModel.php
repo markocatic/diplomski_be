@@ -2,6 +2,7 @@
 
 namespace App\Models\admin;
 
+use Illuminate\Support\Facades\DB;
 
 
 class ImageAdminModel
@@ -13,8 +14,8 @@ class ImageAdminModel
     public function store()
     {
         return DB::table($this->table)
-            ->insert([
-                'name' => $this->name,
+            ->insertGetId([
+                'alt' => $this->name,
                 'path' => $this->path
             ]);
     }

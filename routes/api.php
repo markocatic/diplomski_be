@@ -39,4 +39,11 @@ Route::group([
 
     Route::post('deleteProduct', 'Admin\ProductAdminController@delete');
     Route::post('saveProduct', 'Admin\ProductAdminController@save');
+    Route::post('update', 'Admin\ProductAdminController@update');
+
+
+    Route::get('getContacts', 'Admin\ContactAdminController@getAllContact');
+    Route::get('getAnswers', 'Admin\ContactAdminController@getAnsweredContact');
+    Route::post('contactAnswer', 'Admin\ContactAdminController@insertAnswer');
+    Route::post('deleteContact', 'Admin\ContactAdminController@delete');
 });
