@@ -33,7 +33,7 @@ class ContactAdminModel
     {
         return DB::table($this->table)
             ->where('id', $id)
-            ->update(['answered', 1]);
+            ->update(['answered' => 1]);
     }
 
     public function delete($id)

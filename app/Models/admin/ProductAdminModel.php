@@ -34,6 +34,15 @@ class ProductAdminModel
             ->get();
     }
 
+    public function id_image($id)
+    {
+        return DB::table($this->table)
+            ->where('id', $id)
+            ->select('products.image_id as id')
+            ->get()
+            ->first();
+    }
+
     public function getOneProduct($id)
     {
         return DB::table($this->table)
@@ -73,7 +82,6 @@ class ProductAdminModel
             'price' => $this->price,
             'description' => $this->description,
             'description_short' => $this->description_short,
-            'image_id' => $this->image_id,
             'new_item' => $this->new_item
         ];
 

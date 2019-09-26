@@ -48,7 +48,6 @@ class ProductAdminController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $oldPic = null;
         $productModel = new ProductAdminModel();
         $productImage = new ImageAdminModel();
 
@@ -62,7 +61,6 @@ class ProductAdminController extends Controller
 
         if ($request->hasFile('image')) {
             $oldPic = $productModel->id_image($id);
-            dd($oldPic);
             try {
                 $path = $request->file('image');
                 $directory = public_path('images/products/');
@@ -78,8 +76,8 @@ class ProductAdminController extends Controller
         }
 
         try {
-            $productModel->update($id);
-            dd($productModel);
+            $update = $productModel->update($id);
+            return response()->json($update, 200);
             try {
                 if ($oldPic) {
                     $productImage = new ImageAdminModel();
